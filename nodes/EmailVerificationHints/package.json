@@ -1,0 +1,58 @@
+{
+  "name": "email-verification-hints",
+  "version": "1.0.0",
+  "description": "n8n node to provide email verification hints",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n-node",
+    "email",
+    "verification",
+    "space",
+    "images"
+  ],
+  "license": "MIT",
+  "homepage": "https://www.neverbounce.com/",
+  "author": {
+    "name": "NeverBounce",
+    "email": "support@neverbounce.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/author/email-verification-hints.git"
+  },
+  "engines": {
+    "node": ">=20.15"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "npx rimraf dist && tsc && gulp build:icons",
+    "dev": "tsc --watch"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+      "credentials": [
+      "dist/credentials/NeverBounceApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/EmailVerificationHints/EmailVerificationHints.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "~8.32.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.3",
+    "gulp": "^5.0.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.9"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}

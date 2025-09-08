@@ -1,0 +1,36 @@
+{
+  "node": "n8n-nodes-base.emailVerificationHints",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": [
+    "Communication",
+    "Utility"
+  ],
+  "resources": {
+    "primaryDocumentation": [
+      {
+        "url": "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.emailverificationhints/"
+      }
+    ]
+  },
+  "alias": [
+     "Email",
+    "Verification",
+    "NeverBounce",
+    "Validation",
+    "Email Checker",
+    "Agent Instructions",
+    "AI",
+    "LLM",
+    "Prompt"
+  ],
+  "subcategories": {
+    "Communication": [
+      "Email"
+    ],
+    "Utility": [
+      "Automation Helper",
+			"Validation"
+    ]
+  }
+}

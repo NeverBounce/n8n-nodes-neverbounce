@@ -1,0 +1,24 @@
+{
+  "name": "n8n-node-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "nodes/EmailVerificationHints",
+    "nodes/NbEmailVerification",
+    "nodes/ZoomInfoAPI",
+    "nodes/ZoominfoEnrich"
+  ],
+  "scripts": {
+    "bootstrap": "npm install",
+    "build:all": "npm run build --workspaces",
+    "test:all": "npm run test --workspaces",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials package.json",
+    "lintfix": "eslint nodes credentials package.json --fix",
+    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json"
+  },
+  "dependencies": {
+    "jsrsasign": "^11.1.0",
+    "zoominfo-api-auth-client": "^1.0.1"
+  }
+}
