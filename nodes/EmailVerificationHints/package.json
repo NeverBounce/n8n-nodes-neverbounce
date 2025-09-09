@@ -1,5 +1,5 @@
 {
-  "name": "email-verification-hints",
+  "name": "nb-email-verification-hints",
   "version": "1.0.0",
   "description": "n8n node to provide email verification hints",
   "keywords": [
