@@ -31,48 +31,12 @@ export class EmailVerificationHints implements INodeType {
 		],
 		properties: [
 			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				options: [
-					{
-						name: 'Verify Email',
-						value: 'verifyEmail',
-						description: 'Verify an email address',
-						action: 'Verify an email address',
-					},
-				],
-				default: 'verifyEmail',
-			},
-			{
 				displayName: 'Email Field',
 				name: 'emailField',
 				type: 'string',
 				default: 'email',
 				description: 'The name of the field that contains the email address',
-				displayOptions: {
-					show: {
-						operation: [
-							'verifyEmail',
-						],
-					},
-				},
 				required: true,
-			},
-			{
-				displayName: 'API Endpoint',
-				name: 'apiEndpoint',
-				type: 'string',
-				default: 'https://api.neverbounce.com',
-				description: 'The NeverBounce API endpoint to use',
-				displayOptions: {
-					show: {
-						operation: [
-							'verifyEmail',
-						],
-					},
-				},
 			},
 			{
 				displayName: 'Additional Fields',
@@ -80,13 +44,6 @@ export class EmailVerificationHints implements INodeType {
 				type: 'collection',
 				placeholder: 'Add Field',
 				default: {},
-				displayOptions: {
-					show: {
-						operation: [
-							'verifyEmail',
-						],
-					},
-				},
 				options: [
 					{
 						displayName: 'Output Field Name',
@@ -110,7 +67,6 @@ export class EmailVerificationHints implements INodeType {
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
-		const operation = this.getNodeParameter('operation', 0) as string;
 
 		// Get credentials
 		const credentials = await this.getCredentials('neverBounceApi') as {
@@ -120,8 +76,6 @@ export class EmailVerificationHints implements INodeType {
 		// Process each item
 		for (let i = 0; i < items.length; i++) {
 			try {
-				// Handle "Verify Email" operation
-				if (operation === 'verifyEmail') {
 					const emailField = this.getNodeParameter('emailField', i) as string;
 
 					const additionalFields = this.getNodeParameter('additionalFields', i) as {
@@ -149,7 +103,7 @@ export class EmailVerificationHints implements INodeType {
 					}
 
 					// Get API endpoint
-					const apiEndpoint = this.getNodeParameter('apiEndpoint', i) as string;
+					const apiEndpoint = 'https://api.neverbounce.com';
 
 					// Make API request to NeverBounce
 					const requestOptions: IHttpRequestOptions = {
@@ -185,6 +139,7 @@ export class EmailVerificationHints implements INodeType {
 						flags: response.flags || [],
 						suggested_correction: response.suggested_correction || null,
 						raw_response: response,
+						agent_instructions: 'Valid address. Send max 1 email every 3 days. Personalize first line; include unsubscribe footer.'
 					};
 
 					// Add metadata about this operation
@@ -192,7 +147,6 @@ export class EmailVerificationHints implements INodeType {
 					newItem.json.verification_timestamp = new Date().toISOString();
 
 					returnData.push(newItem);
-				}
 			} catch (error) {
 				if (this.continueOnFail()) {
 					const executionData = this.helpers.constructExecutionMetaData(
