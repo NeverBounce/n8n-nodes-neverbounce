@@ -32,8 +32,8 @@ export class NeverBounceApi implements ICredentialType {
 	};
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: 'https://api.neverbounce.com/v4.0',
-			url: '/email-verification',
+			baseURL: 'https://api.neverbounce.com/v4.2',
+			url: 'account/info?key={{$properties.apiKey}}',
 		},
 	};
 }
