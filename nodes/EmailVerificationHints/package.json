@@ -1,5 +1,5 @@
 {
-  "name": "email-verification-hints",
+  "name": "nb-email-verification-hints",
   "version": "1.0.0",
   "description": "n8n node to provide email verification hints",
   "keywords": [
@@ -25,7 +25,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "npx rimraf dist && tsc && gulp build:icons",
+    "build": "npx rimraf dist && tsc && gulp build:icons && npm run copy",
+    "copy": "mkdir -p dist/nodes/EmailVerificationHints dist/credentials && cp -r ../../dist/nodes/EmailVerificationHints/* dist/nodes/EmailVerificationHints/ && cp -r ../../dist/credentials/* dist/credentials/",
     "dev": "tsc --watch"
   },
   "files": [
@@ -47,10 +48,6 @@
     "gulp": "^5.0.0",
     "prettier": "^3.5.3",
     "typescript": "^5.8.2"
-  },
-  "dependencies": {
-    "request": "^2.88.2",
-    "request-promise-native": "^1.0.9"
   },
   "peerDependencies": {
     "n8n-workflow": "*"

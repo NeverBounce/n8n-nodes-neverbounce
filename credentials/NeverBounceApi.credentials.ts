@@ -1,6 +1,7 @@
 import {
 	IAuthenticateGeneric,
 	ICredentialType,
+	ICredentialTestRequest,
 	INodeProperties,
 } from 'n8n-workflow';
 
@@ -27,6 +28,12 @@ export class NeverBounceApi implements ICredentialType {
 			headers: {
 				'Authorization': '={{$properties.apiKey}}'
 			}
+		},
+	};
+	test: ICredentialTestRequest = {
+		request: {
+			baseURL: 'https://api.neverbounce.com/v4.2',
+			url: 'account/info?key={{$properties.apiKey}}',
 		},
 	};
 }
