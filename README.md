@@ -1,14 +1,70 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+![NeverBounce Logo](https://www.neverbounce.com/images/logo.png)
 
-# n8n-nodes-starter
+# n8n-nodes-neverbounce
 
-This repo contains example nodes to help you get started building your own custom integrations for [n8n](https://n8n.io). It includes the node linter and other dependencies.
+This repository contains [n8n](https://n8n.io) nodes for [NeverBounce](https://www.neverbounce.com/) email verification services. These nodes allow you to integrate NeverBounce's powerful email verification capabilities into your n8n workflows.
 
-To make your custom node available to the community, you must create it as an npm package, and [submit it to the npm registry](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry).
+## Available Nodes
 
-If you would like your node to be available on n8n cloud you can also [submit your node for verification](https://docs.n8n.io/integrations/creating-nodes/deploy/submit-community-nodes/).
+### NeverBounce Email Verification
+
+The NeverBounce Email Verification node connects to the NeverBounce API to validate email addresses. It checks if an email address is valid, invalid, disposable, a catch-all address, or if its status is unknown. The node provides detailed verification results including status codes, flags, and suggested corrections for potentially misspelled domains.
+
+### Email Verification Hints
+
+The Email Verification Hints node enhances email verification results by adding contextual guidance for agents (AI or human) on how to best handle email communications. It adds an "agent_instructions" field containing predefined prompts based on the verification outcome, providing best practices for email communication to improve deliverability, compliance, and user experience in automation flows.
 
 ## Prerequisites
+
+You need the following to use these nodes:
+
+* [n8n](https://n8n.io/) (Minimum version: Node 20)
+* A [NeverBounce](https://www.neverbounce.com/) account and API key
+
+## Installation
+
+Follow these steps to install the NeverBounce nodes in your n8n instance:
+
+```bash
+npm install nb-email-verification nb-email-verification-hints
+```
+
+Alternatively, you can install them directly from the n8n Community Nodes panel in your n8n instance.
+
+## Usage
+
+1. Add your NeverBounce API credentials in the n8n credentials manager
+2. Add either the NeverBounce Email Verification or Email Verification Hints node to your workflow
+3. Configure the node according to your requirements
+4. Connect it to other nodes in your workflow
+
+For detailed usage instructions, refer to the README files for each node:
+- [NeverBounce Email Verification](./nodes/NbEmailVerification/README.md)
+- [Email Verification Hints](./nodes/EmailVerificationHints/README.md)
+
+## Example Workflows
+
+### Basic Email Verification
+
+1. **HTTP Request node**: Receives a webhook with an email to verify
+2. **NeverBounce Email Verification node**: Verifies the email address
+3. **IF node**: Routes the workflow based on verification results
+   - If valid, proceed with sending email
+   - Otherwise, handle invalid email (e.g., notify user, log error)
+
+### Enhanced Email Verification with AI
+
+1. **Spreadsheet node**: Reads a list of email addresses
+2. **NeverBounce Email Verification node**: Verifies each email address
+3. **Email Verification Hints node**: Adds communication guidelines
+4. **OpenAI node**: Uses the verification results and hints to generate appropriate email content
+5. **Send Email node**: Sends the generated email
+
+## Development
+
+If you want to contribute to this project:
+
+## Development Prerequisites
 
 You need the following installed on your development machine:
 
@@ -20,29 +76,23 @@ You need the following installed on your development machine:
   ```
 * Recommended: follow n8n's guide to [set up your development environment](https://docs.n8n.io/integrations/creating-nodes/build/node-development-environment/).
 
-## Using this starter
-
-These are the basic steps for working with the starter. For detailed guidance on creating and publishing nodes, refer to the [documentation](https://docs.n8n.io/integrations/creating-nodes/).
-
-1. [Generate a new repository](https://github.com/n8n-io/n8n-nodes-starter/generate) from this template repository.
-2. Clone your new repo:
+1. Clone the repository:
    ```
-   git clone https://github.com/<your organization>/<your-repo-name>.git
+   git clone https://github.com/NeverBounce/neverbounce-n8n-nodes.git
    ```
-3. Run `npm i` to install dependencies.
-4. Open the project in your editor.
-5. Browse the examples in `/nodes` and `/credentials`. Modify the examples, or replace them with your own nodes.
-6. Update the `package.json` to match your details.
-7. Run `npm run lint` to check for errors or `npm run lintfix` to automatically fix errors when possible.
-8. Test your node locally. Refer to [Run your node locally](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/) for guidance.
-9. Replace this README with documentation for your node. Use the [README_TEMPLATE](README_TEMPLATE.md) to get started.
-10. Update the LICENSE file to use your details.
-11. [Publish](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry) your package to npm.
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Build all nodes:
+   ```
+   npm run build:all
+   ```
+4. Test your changes locally by linking the package to your n8n installation
 
 ## More information
-
 Refer to our [documentation on creating nodes](https://docs.n8n.io/integrations/creating-nodes/) for detailed information on building your own nodes.
 
 ## License
 
-[MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+[MIT](https://github.com/NeverBounce/neverbounce-n8n-nodes/blob/master/LICENSE.md)
