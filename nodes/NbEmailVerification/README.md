@@ -73,5 +73,6 @@ This example shows how to verify multiple emails with a custom output field.
 
 ## Additional Resources
 
+- [NeverBounce N8N Node Reposetory](https://github.com/NeverBounce/neverbounce-n8n-nodes)
 - [NeverBounce API Documentation](https://developers.neverbounce.com/docs)
 - [Email Deliverability Best Practices](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.nbemailverification/)
