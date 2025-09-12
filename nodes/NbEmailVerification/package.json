@@ -26,7 +26,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "npx rimraf dist && tsc && gulp build:icons && npm run copy",
+    "clean": "npx rimraf dist",
+    "clean-build": "npm run clean &&npm run build",
+    "build": "tsc && gulp build:icons && npm run copy",
     "copy": "mkdir -p dist/nodes/NbEmailVerification dist/credentials && cp -r ../../dist/nodes/NbEmailVerification/* dist/nodes/NbEmailVerification/ && cp -r ../../dist/credentials/* dist/credentials/",
     "dev": "tsc --watch"
   },

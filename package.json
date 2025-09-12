@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "bootstrap": "npm install",
-    "build:all": "npx rimraf dist && npm run build --workspaces",
+    "build:all": "npx rimraf dist && npm run clean --workspaces && npm run build --workspaces",
     "test:all": "npm run test --workspaces",
     "format": "prettier nodes credentials --write",
     "lint": "eslint nodes credentials package.json",
