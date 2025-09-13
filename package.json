@@ -4,7 +4,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/NeverBounce/neverbounce-n8n-nodes.git"
+    "url": "https://github.com/NeverBounce/n8n-nodes-neverbounce.git"
   },
   "workspaces": [
     "nodes/EmailVerificationHints",

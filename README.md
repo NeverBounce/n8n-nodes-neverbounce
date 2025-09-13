@@ -78,7 +78,7 @@ You need the following installed on your development machine:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/NeverBounce/neverbounce-n8n-nodes.git
+   git clone https://github.com/NeverBounce/n8n-nodes-neverbounce.git
    ```
 2. Install dependencies:
    ```
@@ -95,4 +95,4 @@ Refer to our [documentation on creating nodes](https://docs.n8n.io/integrations/
 
 ## License
 
-[MIT](https://github.com/NeverBounce/neverbounce-n8n-nodes/blob/master/LICENSE.md)
+[MIT](https://github.com/NeverBounce/n8n-nodes-neverbounce/blob/master/LICENSE.md)
