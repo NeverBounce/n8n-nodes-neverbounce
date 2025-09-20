@@ -1,6 +1,6 @@
 {
-  "name": "nb-email-verification-hints",
-  "version": "1.0.0",
+  "name": "n8n-nodes-neverbounce-email-verification-hints",
+  "version": "1.0.1",
   "description": "n8n node to provide email verification hints",
   "keywords": [
     "n8n-community-node-package",
@@ -21,7 +21,7 @@
     "url": "https://github.com/NeverBounce/n8n-nodes-neverbounce.git"
   },
   "engines": {
-    "node": ">=20.15"
+    "node": ">=20.0.0"
   },
   "main": "index.js",
   "scripts": {
@@ -36,7 +36,7 @@
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,
-      "credentials": [
+    "credentials": [
       "dist/credentials/NeverBounceApi.credentials.js"
     ],
     "nodes": [
