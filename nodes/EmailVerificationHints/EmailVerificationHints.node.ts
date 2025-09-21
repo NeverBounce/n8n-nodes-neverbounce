@@ -7,10 +7,9 @@ import {
 	NodeOperationError,
 	IHttpRequestOptions,
 } from 'n8n-workflow';
-import { VerifyStatus, RawVerifiedEmailHints, EMAIL_REGEX, getHint } from '../../types';
+import { VerifyStatus, RawVerifiedEmailHints, EMAIL_REGEX, Hint } from '../../types';
 
 export class EmailVerificationHints implements INodeType {
-
 	description: INodeTypeDescription = {
 		displayName: 'NeverBounce Email Verification',
 		name: 'emailVerificationHints',
@@ -140,7 +139,7 @@ export class EmailVerificationHints implements INodeType {
 						flags: response.flags || [],
 						suggested_correction: response.suggested_correction || null,
 						raw_response: response,
-						agent_instructions: getHint(),
+						agent_instructions: Hint,
 					};
 
 					// Add metadata about this operation
