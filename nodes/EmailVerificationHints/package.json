@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-neverbounce-email-verification-hints",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "n8n node to provide email verification hints",
   "keywords": [
     "n8n-community-node-package",
@@ -28,7 +28,7 @@
     "clean": "npx rimraf dist",
     "clean-build": "npm run clean &&npm run build",
     "build": "tsc && gulp build:icons && npm run copy",
-    "copy": "mkdir -p dist/nodes/EmailVerificationHints dist/credentials && cp -r ../../dist/nodes/EmailVerificationHints/* dist/nodes/EmailVerificationHints/ && cp -r ../../dist/credentials/* dist/credentials/",
+    "copy": "mkdir -p dist/nodes/EmailVerificationHints dist/credentials dist/types && cp -r ../../dist/nodes/EmailVerificationHints/* dist/nodes/EmailVerificationHints/ && cp -r ../../dist/credentials/* dist/credentials/ && cp -r ../../dist/types/* dist/types/",
     "dev": "tsc --watch"
   },
   "files": [

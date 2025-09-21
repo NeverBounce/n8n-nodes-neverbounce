@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-neverbounce-email-verification",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "n8n node to provide NeverBounce email verification",
   "keywords": [
     "n8n-community-node-package",
@@ -29,7 +29,7 @@
     "clean": "npx rimraf dist",
     "clean-build": "npm run clean &&npm run build",
     "build": "tsc && gulp build:icons && npm run copy",
-    "copy": "mkdir -p dist/nodes/NbEmailVerification dist/credentials && cp -r ../../dist/nodes/NbEmailVerification/* dist/nodes/NbEmailVerification/ && cp -r ../../dist/credentials/* dist/credentials/",
+    "copy": "mkdir -p dist/nodes/NbEmailVerification dist/credentials dist/types && cp -r ../../dist/nodes/NbEmailVerification/* dist/nodes/NbEmailVerification/ && cp -r ../../dist/credentials/* dist/credentials/ && cp -r ../../dist/types/* dist/types/",
     "dev": "tsc --watch"
   },
   "files": [
