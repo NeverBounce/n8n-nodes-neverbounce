@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-neverbounce-email-verification-hints",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "n8n node to provide email verification hints",
   "keywords": [
     "n8n-community-node-package",
