@@ -11,7 +11,7 @@ import { VerifyStatus, RawVerifiedEmailHints, EMAIL_REGEX, Hint } from '../../ty
 
 export class EmailVerificationHints implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'NeverBounce Email Verification',
+		displayName: 'NeverBounce Email Verification Hints',
 		name: 'emailVerificationHints',
 		icon: 'file:emailVerificationHints.svg',
 		group: ['transform'],

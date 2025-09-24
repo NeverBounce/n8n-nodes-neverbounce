@@ -7,7 +7,12 @@ import {
 	NodeOperationError,
 	IHttpRequestOptions,
 } from 'n8n-workflow';
-import { VerifyStatus, RawVerifiedEmail, EMAIL_REGEX } from '../../types';
+import { VerifyStatus, RawVerifiedEmail, EMAIL_REGEX, Hint } from '../../types';
+
+const enum NbEmailVerificationOperation {
+	EmailVerification = 'emailVerification',
+	EmailVerificationHints = 'emailVerificationHints',
+}
 
 export class NbEmailVerification implements INodeType {
 	description: INodeTypeDescription = {
@@ -31,10 +36,32 @@ export class NbEmailVerification implements INodeType {
 		],
 		properties: [
 			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				required: true,
+				options: [
+					{
+						name: 'Email Verification',
+						value: NbEmailVerificationOperation.EmailVerification,
+						description: 'Verify email addresses',
+						action: 'Verify email addresses',
+					},
+							{
+						name: 'Email Verification with hints',
+						value: NbEmailVerificationOperation.EmailVerificationHints,
+						description: 'Verify email addresses with hints',
+						action: 'Verify email addresses with hints',
+					},
+				],
+				default: NbEmailVerificationOperation.EmailVerification,
+			},
+			{
 				displayName: 'Email Field',
 				name: 'emailField',
 				type: 'string',
-				default: 'email',
+				default: 'Email',
 				description: 'The name of the field that contains the email address',
 				required: true,
 			},
@@ -67,6 +94,7 @@ export class NbEmailVerification implements INodeType {
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
+		const operation = this.getNodeParameter('operation', 0) as NbEmailVerificationOperation;
 
 		// Get credentials
 		const credentials = await this.getCredentials('neverBounceApi') as {
@@ -140,6 +168,13 @@ export class NbEmailVerification implements INodeType {
 						suggested_correction: response.suggested_correction || null,
 						raw_response: response,
 					};
+
+					if(operation === NbEmailVerificationOperation.EmailVerificationHints) {
+						newItem.json[outputField] = {
+							...newItem.json[outputField],
+							agent_instructions: Hint,
+						}
+					}
 
 					// Add metadata about this operation
 					newItem.json.email_verified = true;
