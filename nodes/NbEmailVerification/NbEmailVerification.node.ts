@@ -40,7 +40,6 @@ export class NbEmailVerification implements INodeType {
 				name: 'operation',
 				type: 'options',
 				noDataExpression: true,
-				required: true,
 				options: [
 					{
 						name: 'Email Verification',
