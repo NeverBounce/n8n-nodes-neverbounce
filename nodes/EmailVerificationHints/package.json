@@ -1,14 +1,15 @@
 {
   "name": "n8n-nodes-neverbounce-email-verification-hints",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "n8n node to provide email verification hints",
   "keywords": [
     "n8n-community-node-package",
     "n8n-node",
     "email",
     "verification",
-    "space",
-    "images"
+    "validation",
+    "neverbounce",
+    "email-verification"
   ],
   "license": "MIT",
   "homepage": "https://www.neverbounce.com/",
