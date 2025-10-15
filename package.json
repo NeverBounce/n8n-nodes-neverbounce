@@ -18,9 +18,5 @@
     "lint": "eslint nodes credentials package.json",
     "lintfix": "eslint nodes credentials package.json --fix",
     "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json"
-  },
-  "dependencies": {
-    "jsrsasign": "^11.1.0",
-    "zoominfo-api-auth-client": "^1.0.1"
   }
 }

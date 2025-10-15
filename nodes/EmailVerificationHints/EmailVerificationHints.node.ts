@@ -68,11 +68,6 @@ export class EmailVerificationHints implements INodeType {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
 
-		// Get credentials
-		const credentials = await this.getCredentials('neverBounceApi') as {
-			apiKey: string;
-		};
-
 		// Process each item
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -110,25 +105,24 @@ export class EmailVerificationHints implements INodeType {
 						method: 'GET',
 						url: `${apiEndpoint}/v4/single/check`,
 						qs: {
-							key: credentials.apiKey,
 							email,
-						},
-						headers: {
-							'Content-Type': 'application/json',
-							'Authorization': `Bearer ${credentials.apiKey}`,
 						},
 						json: true,
 					};
 
-					// Execute the request
-					const response = await this.helpers.httpRequest(requestOptions) as RawVerifiedEmailHints;
+					// Execute the request with authentication
+					const response = await this.helpers.httpRequestWithAuthentication.call(
+						this,
+						'neverBounceApi',
+						requestOptions
+					) as RawVerifiedEmailHints;
 
 					// Clone the item to add our new data
 					const newItem: INodeExecutionData = {
 						json: {
 							...items[i].json,
 						},
-						pairedItem: items[i].pairedItem,
+						pairedItem: { item: i },
 					};
 
 					// Add verification results to the output
