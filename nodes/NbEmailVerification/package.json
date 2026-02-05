@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-neverbounce-email-verification",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "n8n node to provide NeverBounce email verification",
   "keywords": [
     "n8n-community-node-package",
@@ -33,7 +33,7 @@
     "dev": "tsc --watch"
   },
   "files": [
-      "dist"
+    "dist"
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,
