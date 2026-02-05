@@ -9,11 +9,6 @@ import {
 } from 'n8n-workflow';
 import { VerifyStatus, RawVerifiedEmail, EMAIL_REGEX, Hint } from '../../types';
 
-const enum NbEmailVerificationOperation {
-	EmailVerification = 'emailVerification',
-	EmailVerificationHints = 'emailVerificationHints',
-}
-
 export class NbEmailVerification implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'NeverBounce Email Verification',
@@ -21,7 +16,7 @@ export class NbEmailVerification implements INodeType {
 		icon: 'file:nbEmailVerification.svg',
 		group: ['transform'],
 		version: 1,
-		subtitle: '={{$parameter["operation"]}}',
+		subtitle: '={{$parameter["resource"] + ": " + $parameter["operation"]}}',
 		description: 'Verify email addresses using NeverBounce API',
 		defaults: {
 			name: 'NeverBounce Email Verification',
@@ -36,25 +31,37 @@ export class NbEmailVerification implements INodeType {
 		],
 		properties: [
 			{
-				displayName: 'Operation',
-				name: 'operation',
+				displayName: 'Resource',
+				name: 'resource',
 				type: 'options',
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Email Verification',
-						value: NbEmailVerificationOperation.EmailVerification,
-						description: 'Verify email addresses',
-						action: 'Verify email addresses',
-					},
-							{
-						name: 'Email Verification with hints',
-						value: NbEmailVerificationOperation.EmailVerificationHints,
-						description: 'Verify email addresses with hints',
-						action: 'Verify email addresses with hints',
+						name: 'Email',
+						value: 'email',
 					},
 				],
-				default: NbEmailVerificationOperation.EmailVerification,
+				default: 'email',
+			},
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['email'],
+					},
+				},
+				options: [
+					{
+						name: 'Verify',
+						value: 'verify',
+						description: 'Verify an email address',
+						action: 'Verify an email address',
+					},
+				],
+				default: 'verify',
 			},
 			{
 				displayName: 'Email Field',
@@ -63,6 +70,12 @@ export class NbEmailVerification implements INodeType {
 				default: 'Email',
 				description: 'The name of the field that contains the email address',
 				required: true,
+				displayOptions: {
+					show: {
+						resource: ['email'],
+						operation: ['verify'],
+					},
+				},
 			},
 			{
 				displayName: 'Additional Fields',
@@ -70,7 +83,20 @@ export class NbEmailVerification implements INodeType {
 				type: 'collection',
 				placeholder: 'Add Field',
 				default: {},
+				displayOptions: {
+					show: {
+						resource: ['email'],
+						operation: ['verify'],
+					},
+				},
 				options: [
+					{
+						displayName: 'Include Hints',
+						name: 'includeHints',
+						type: 'boolean',
+						default: false,
+						description: 'Whether to include agent instructions and hints in the response',
+					},
 					{
 						displayName: 'Output Field Name',
 						name: 'outputField',
@@ -93,7 +119,6 @@ export class NbEmailVerification implements INodeType {
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
-		const operation = this.getNodeParameter('operation', 0) as NbEmailVerificationOperation;
 
 		// Process each item
 		for (let i = 0; i < items.length; i++) {
@@ -103,6 +128,7 @@ export class NbEmailVerification implements INodeType {
 					const additionalFields = this.getNodeParameter('additionalFields', i) as {
 						outputField?: string;
 						timeout?: number;
+						includeHints?: boolean;
 					};
 
 					// Set default output field name if not provided
@@ -162,11 +188,8 @@ export class NbEmailVerification implements INodeType {
 						raw_response: response,
 					};
 
-					if(operation === NbEmailVerificationOperation.EmailVerificationHints) {
-						newItem.json[outputField] = {
-							...newItem.json[outputField],
-							agent_instructions: Hint,
-						}
+					if (additionalFields.includeHints) {
+						(newItem.json[outputField] as any).agent_instructions = Hint;
 					}
 
 					// Add metadata about this operation
