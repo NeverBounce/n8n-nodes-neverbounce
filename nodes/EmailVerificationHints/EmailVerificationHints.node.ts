@@ -3,7 +3,6 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionType,
 	NodeOperationError,
 	IHttpRequestOptions,
 } from 'n8n-workflow';
@@ -21,8 +20,8 @@ export class EmailVerificationHints implements INodeType {
 		defaults: {
 			name: 'NeverBounce Email Verification with Hints',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'neverBounceApi',

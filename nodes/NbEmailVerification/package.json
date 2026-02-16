@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-neverbounce-email-verification",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "n8n node to provide NeverBounce email verification",
   "keywords": [
     "n8n-community-node-package",
