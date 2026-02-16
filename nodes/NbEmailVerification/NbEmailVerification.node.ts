@@ -150,25 +150,30 @@ export class NbEmailVerification implements INodeType {
 						);
 					}
 
-					// Get API endpoint
-					const apiEndpoint = 'https://api.neverbounce.com';
+				// Get API endpoint
+				const apiEndpoint = 'https://api.neverbounce.com';
 
-					// Make API request to NeverBounce
-					const requestOptions: IHttpRequestOptions = {
-						method: 'GET',
-						url: `${apiEndpoint}/v4/single/check`,
-						qs: {
-							email,
-						},
-						json: true,
-					};
-					
-					// Execute the request with authentication
-					const response = await this.helpers.httpRequestWithAuthentication.call(
-						this,
-						'neverBounceApi',
-						requestOptions
-					) as RawVerifiedEmail;
+				// Get credentials to access API key
+				const credentials = await this.getCredentials('neverBounceApi');
+				const apiKey = credentials.apiKey as string;
+
+				// Make API request to NeverBounce
+				const requestOptions: IHttpRequestOptions = {
+					method: 'GET',
+					url: `${apiEndpoint}/v4/single/check`,
+					qs: {
+						email,
+						key: apiKey,
+					},
+					json: true,
+				};
+				
+				// Execute the request with authentication
+				const response = await this.helpers.httpRequestWithAuthentication.call(
+					this,
+					'neverBounceApi',
+					requestOptions
+				) as RawVerifiedEmail;
 
 					// Clone the item to add our new data
 					const newItem: INodeExecutionData = {
